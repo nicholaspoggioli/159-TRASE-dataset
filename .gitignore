@@ -1,6 +1,6 @@
 # Data files
-159-data-cleaning/
-159-data-raw/
+159-data-processed/
+159-data-original/
 
 # History files
 .Rhistory
