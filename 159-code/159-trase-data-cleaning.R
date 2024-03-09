@@ -1,82 +1,83 @@
----
-title: "Argentina"
-author: "Robert Gruber"
-date: "`r Sys.Date()`"
-output: pdf_document
----
+# |- Clean the global environment ----
+rm(list = ls())
+while (!is.null(dev.list())) {
+  dev.off(dev.list()["RStudioGD"])
+}
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, error=FALSE)
-```
-
-```{r}
 # |- Load all the required packages ----
-library(rstudioapi)
-library(tidyverse)
-library(ggplot2)
-library(dplyr)
-library(data.table)
-library(janitor)
-```
+ipak <- function(pkg) {
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg))
+    install.packages(new.pkg,
+                     dependencies = TRUE,
+                     repos = "http://cran.us.r-project.org")
+  sapply(pkg, require, character.only = TRUE)
+}
 
-```{r}
+ipak(c(
+  "rstudioapi",
+  "tidyverse",
+  "ggplot2",
+  "dplyr",
+  "data.table",
+  "janitor"
+))
+
+# |- Setup Working Directory ----
+# Note by Poggioli: This code sets the working directory to the location
+#   of the R script. So all of our data need to be in the same directory
+#   as the R script.
+# To resolve this, I am creating a new directory in the project folder
+#  for data cleaning. It will contain the raw data and code scripts and no
+#  sub-directories.
+path <- dirname(rstudioapi::getActiveDocumentContext()$path)
+setwd(path)
+
+
 # |- My thinking process ----
-corn <- read.csv("argentina-corn-v0.2.3-2024-01-17.csv.csv") %>%
+corn <- read.csv("argentina-corn-v0.2.3-2024-01-17.csv") %>%
   janitor::clean_names()
 
-```
-
-```{r}
 # column names
-#corn %>% colnames()
+corn %>% colnames()
 # quick checking
-#corn %>% pull(year) %>% unique()
-#corn %>% pull(country_of_production) %>% unique()
-#corn %>% pull(port_of_export) %>% unique()
-#corn %>% pull(exporter) %>% unique()
-#corn %>% pull(country_of_destination) %>% unique()
-#corn %>% pull(economic_bloc) %>% unique()
-```
+corn %>% pull(year) %>% unique()
+corn %>% pull(country_of_production) %>% unique()
+corn %>% pull(port_of_export) %>% unique()
+corn %>% pull(exporter) %>% unique()
+corn %>% pull(country_of_destination) %>% unique()
+corn %>% pull(economic_bloc) %>% unique()
 
-```{r}
 # I want to see the difference between country_of_destination and economic_bloc
+
 chk1 <- corn %>%
   distinct(country_of_destination, economic_bloc) %>%
   mutate(chk = country_of_destination == economic_bloc)
 
 chk1 %>% filter(chk == FALSE)
-```
 
-```{r}
 # It seems that economic_bloc comprises various countries with EU.
-# In that regards, we should consider may be just the country_of_destination
+# In that regards, we should consider maybe just the country_of_destination
+
 rm(chk1)
 
 avg_corn <- corn %>%
   group_by(year, country_of_destination) %>%
   summarise(avg_vol = volume %>% mean(na.rm = T),
             avg_fob = fob %>% mean(na.rm = T))
-```
 
-```{r}
 # here I can see avg_corn, I don't; know why you were not able to see it.
 
 # Let me delete everything and not delete what I will need later
 rm(list = ls()[!ls() %in% c("path", "ipak")])
-```
 
-```{r}
 # Main script starts here!
 # |- Actual data management ----
 dt <- list(
-  Cotton = read.csv("argentina-cotton-v0.2.3-2024-01-17.csv.csv") %>% janitor::clean_names() %>%
-  mutate(identifier = "cotton"),
-  Corn = read.csv("argentina-corn-v0.2.3-2024-01-17.csv.csv") %>% janitor::clean_names() %>%
-  mutate(identifier = "corn"),
-  Wood = read.csv("argentina-wood-pulp-v0.2.3-2024-01-17.csv.csv") %>% janitor::clean_names() %>%
-  mutate(identifier = "wood-pulp"),
-  Soy = read.csv("argentina-soy-v1.1.1-2024-01-17.csv.csv")  %>% janitor::clean_names() %>%
-  mutate(identifier = "soy")# soy has more variables than others
+  Cotton = read.csv("argentina-cotton-v0.2.3-2024-01-17.csv") %>% janitor::clean_names(),
+  Corn = read.csv("argentina-corn-v0.2.3-2024-01-17.csv") %>% janitor::clean_names(),
+  Wood = read.csv("argentina-wood-pulp-v0.2.3-2024-01-17.csv") %>% janitor::clean_names(),
+  Soy = read.csv("argentina-soy-v1.1.1-2024-01-17.csv")  %>% janitor::clean_names()# soy has more variables than others
 ) %>%
   rbindlist(use.names = T,
             fill = TRUE,
@@ -89,34 +90,37 @@ dt <- list(
          fob)
 
 rm(list = ls()[!ls() %in% c("path", "ipak", "dt")])
-```
 
-```{r}
 # This will have avg by year, by destination, by products
+
+####### Poggioli: na.rm=T removes rows with missing observations? If so, confirm if
+#         losing these data affects the data quality.
 avg_by_dest_product_year <- dt %>%
   group_by(year, country_of_destination, product) %>%
   summarise(avg_vol = volume %>% mean(na.rm = T),
             avg_fob = fob %>% mean(na.rm = T))
 
 # This will have avg by year, by destination, by products, by port as well
+
+####### Poggioli: na.rm=T removes rows with missing observations? If so, confirm if
+#         losing these data affects the data quality.
 avg_by_port_dest_product_year <- dt %>%
   group_by(year, country_of_destination, product, port_of_export) %>%
   summarise(avg_vol = volume %>% mean(na.rm = T),
             avg_fob = fob %>% mean(na.rm = T))
-```
 
-```{r}
 # Balanced data
+
+###### Poggioli: Is this dropping rows or adding new rows to force the data
+#         to be "balanced"? If so, check this for its impact on data quality.
 dt %>% pull(year) %>% unique() # 5 years
-#dt %>% pull(country_of_destination) %>% unique() # 151 countries
+dt %>% pull(country_of_destination) %>% unique() # 151 countries
 dt %>% pull(product) %>% unique() # 4 products
 
 # If such is the case what should be the numbers of rows for the data?
 5 * 151 * 4 # 3020, however, when you examine the avg_by_dest_product_year it has 1279 observations
 avg_by_dest_product_year %>% nrow()
-```
 
-```{r}
 # We must be sure that data is adequately represented
 balance_avg_by_dest_product_year <- expand.grid(
   year = dt %>% pull(year) %>% unique(),
@@ -130,16 +134,11 @@ balance_avg_by_dest_product_year <- expand.grid(
   )
 
 head(balance_avg_by_dest_product_year)
-```
-
-```{r}
 # Here you see that there was no export of wood to Uruguay.
 
 balance_avg_by_dest_product_year %>%
   data.table::fwrite("balance_avg_by_dest_product_year.csv")
-```
 
-```{r}
 # With same logic, let's work through the avg product by port as well
 balance_avg_by_port_dest_product_year <- expand.grid(
   year = dt %>% pull(year) %>% unique(),
@@ -154,15 +153,10 @@ balance_avg_by_port_dest_product_year <- expand.grid(
   )
 
 head(balance_avg_by_port_dest_product_year)
-```
-
-```{r}
 # As you see that Cotton has not been exported to Uruguay from Buenos Aires.
 balance_avg_by_port_dest_product_year %>%
   data.table::fwrite("balance_avg_by_port_dest_product_year.csv")
-```
 
-```{r}
 # Some graphs
 ggplot(
   data = balance_avg_by_dest_product_year %>%
@@ -174,9 +168,8 @@ ggplot(
             alpha = 0.5) +
   theme_minimal() +
   labs(x = "", y = "Average annual volumn of \n Wood exported to Brazil")
-```
 
-```{r}
+
 ggplot(
   data = balance_avg_by_port_dest_product_year %>%
     filter(product == "Wood", 
@@ -189,5 +182,4 @@ ggplot(
             alpha = 0.5) +
   theme_minimal() +
   labs(x = "", y = "Average annual volumn of \n Wood exported to Brazil \n from BERNARDO DE YRIGOYEN port")
-```
 
