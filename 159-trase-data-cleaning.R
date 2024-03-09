@@ -33,6 +33,9 @@ ipak(c(
 path <- dirname(rstudioapi::getActiveDocumentContext()$path)
 setwd(path)
 
+###### Poggioli:  The path variable is to the directory with the code files, but the data files
+#                 are in a different directory. We now need to navigate to that directory.
+
 
 # |- My thinking process ----
 corn <- read.csv("argentina-corn-v0.2.3-2024-01-17.csv") %>%
