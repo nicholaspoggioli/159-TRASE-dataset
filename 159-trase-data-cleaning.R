@@ -99,15 +99,6 @@ dt <- list(
 
 rm(list = ls()[!ls() %in% c("path", "ipak", "dt")])
 
-# This will have avg by year, by destination, by products
-
-####### Poggioli: na.rm=T removes rows with missing observations? If so, confirm if
-#         losing these data affects the data quality.
-avg_by_dest_product_year <- dt %>%
-  group_by(year, country_of_destination, product) %>%
-  summarise(avg_vol = volume %>% mean(na.rm = T),
-            avg_fob = fob %>% mean(na.rm = T))
-
 # This will have avg by year, by destination, by products, by port as well
 
 ####### Poggioli: na.rm=T removes rows with missing observations? If so, confirm if
