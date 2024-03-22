@@ -38,11 +38,12 @@ setwd(path)
 
 
 # |- My thinking process ----
-corn <- read.csv("argentina-corn-v0.2.3-2024-01-17.csv") %>%
+corn <- read.csv("159-data-original/argentina-corn-v0.2.3-2024-01-17.csv") %>%
   janitor::clean_names()
 
 # column names
 corn %>% colnames()
+
 # quick checking
 corn %>% pull(year) %>% unique()
 corn %>% pull(country_of_production) %>% unique()
@@ -77,10 +78,14 @@ rm(list = ls()[!ls() %in% c("path", "ipak")])
 # Main script starts here!
 # |- Actual data management ----
 dt <- list(
-  Cotton = read.csv("argentina-cotton-v0.2.3-2024-01-17.csv") %>% janitor::clean_names(),
-  Corn = read.csv("argentina-corn-v0.2.3-2024-01-17.csv") %>% janitor::clean_names(),
-  Wood = read.csv("argentina-wood-pulp-v0.2.3-2024-01-17.csv") %>% janitor::clean_names(),
-  Soy = read.csv("argentina-soy-v1.1.1-2024-01-17.csv")  %>% janitor::clean_names()# soy has more variables than others
+  Cotton = read.csv("159-data-original/argentina-cotton-v0.2.3-2024-01-17.csv") %>% 
+    janitor::clean_names(),
+  Corn = read.csv("159-data-original/argentina-corn-v0.2.3-2024-01-17.csv") %>% 
+    janitor::clean_names(),
+  Wood = read.csv("159-data-original/argentina-wood-pulp-v0.2.3-2024-01-17.csv") %>% 
+    janitor::clean_names(),
+  Soy = read.csv("159-data-original/argentina-soy-v1.1.1-2024-01-17.csv")  %>% 
+    janitor::clean_names()# soy has more variables than others
 ) %>%
   rbindlist(use.names = T,
             fill = TRUE,
