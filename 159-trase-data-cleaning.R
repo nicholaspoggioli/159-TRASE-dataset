@@ -118,25 +118,7 @@ dt %>% pull(product) %>% unique() # 4 products
 
 # If such is the case what should be the numbers of rows for the data?
 5 * 151 * 4 # 3020, however, when you examine the avg_by_dest_product_year it has 1279 observations
-avg_by_dest_product_year %>% nrow()
-
-# We must be sure that data is adequately represented
-balance_avg_by_dest_product_year <- expand.grid(
-  year = dt %>% pull(year) %>% unique(),
-  country_of_destination = dt %>% pull(country_of_destination) %>% unique(),
-  product = dt %>% pull(product) %>% unique()
-) %>%
-  merge(
-    avg_by_dest_product_year,
-    by = c("year", "country_of_destination", "product"),
-    all.x = T
-  )
-
-head(balance_avg_by_dest_product_year)
-# Here you see that there was no export of wood to Uruguay.
-
-balance_avg_by_dest_product_year %>%
-  data.table::fwrite("balance_avg_by_dest_product_year.csv")
+dt %>% nrow()
 
 # With same logic, let's work through the avg product by port as well
 balance_avg_by_port_dest_product_year <- expand.grid(
