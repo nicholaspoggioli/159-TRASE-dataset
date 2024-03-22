@@ -135,8 +135,15 @@ balance_avg_by_port_dest_product_year <- expand.grid(
 
 head(balance_avg_by_port_dest_product_year)
 # As you see that Cotton has not been exported to Uruguay from Buenos Aires.
-balance_avg_by_port_dest_product_year %>%
-  data.table::fwrite("balance_avg_by_port_dest_product_year.csv")
+
+# Export to csv file
+### POGGIOLI: I'm commenting this out so it doesn't create a large file each time
+# balance_avg_by_port_dest_product_year %>%
+#  data.table::fwrite("159-data-processed/balance_avg_by_port_dest_product_year.csv")
+
+
+
+###### POGGIOLI RESUME EDITING HERE
 
 # Some graphs
 ggplot(
