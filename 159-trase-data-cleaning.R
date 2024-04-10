@@ -169,5 +169,5 @@ ggplot(
             linewidth = 1.2,
             alpha = 0.5) +
   theme_minimal() +
-  labs(x = "", y = "Average annual volumn of \n Wood exported to Brazil \n from BERNARDO DE YRIGOYEN port")
+  labs(x = "", title = "Average annual volume of wood exported to Brazil from BERNARDO DE YRIGOYEN port")
 
