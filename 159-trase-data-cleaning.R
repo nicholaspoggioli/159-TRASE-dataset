@@ -142,9 +142,6 @@ head(balance_avg_by_port_dest_product_year)
 #  data.table::fwrite("159-data-processed/balance_avg_by_port_dest_product_year.csv")
 
 
-
-###### POGGIOLI RESUME EDITING HERE
-
 # Some graphs
 ggplot(
   data = balance_avg_by_dest_product_year %>%
@@ -155,7 +152,7 @@ ggplot(
             linewidth = 1.2,
             alpha = 0.5) +
   theme_minimal() +
-  labs(x = "", y = "Average annual volumn of \n Wood exported to Brazil")
+  labs(x = "", y = "Average annual volume of wood exported to Brazil")
 
 
 ggplot(
