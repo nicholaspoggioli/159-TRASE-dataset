@@ -51,7 +51,7 @@ Argentina <- list(
 ##------------------------------------------------------------------------------
 
 #Bolivia
-Bolivia <- read.csv("https://resources.trase.earth/data/supply-chains/bolivia/soy/v1.0.0/bolivia-soy-v1.0.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
+Bolivia <- read_csv("https://resources.trase.earth/data/supply-chains/bolivia/soy/v1.0.0/bolivia-soy-v1.0.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
   mutate(product = "Soy")
 
 ##------------------------------------------------------------------------------
