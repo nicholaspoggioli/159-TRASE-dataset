@@ -195,7 +195,7 @@ Peru <- list(
 
 glimpse(Argentina)
 glimpse(Bolivia)
-glimpse(Brazil)
+# glimpse(Brazil)
 glimpse(Columbia)
 glimpse(CoteDIvoire)
 glimpse(Ecuador)
@@ -206,7 +206,7 @@ glimpse(Peru)
 
 ##------------------------------------------------------------------------------
 
-combined_countries <- rbindlist(list(Argentina, Bolivia, Brazil, Columbia, CoteDIvoire, Ecuador, Ghana, Indonesia, Paraguay, Peru), 
+combined_countries <- rbindlist(list(Argentina, Bolivia, Columbia, CoteDIvoire, Ecuador, Ghana, Indonesia, Paraguay, Peru), 
                                 use.names = TRUE, fill = TRUE)
 
 glimpse(combined_countries)
@@ -268,7 +268,7 @@ combined_countries %>% pull(year) %>% unique() # 19 years
 combined_countries %>% pull(country_of_destination) %>% unique() # 235 countries
 combined_countries %>% pull(product) %>% unique() # 17 products
 
-19 * 235 * 17 = 75905
+# 19 * 235 * 17 = 75905
 
 avg_by_port_dest_product_year %>% nrow()
 
