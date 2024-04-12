@@ -51,36 +51,36 @@ Argentina <- list(
 ##------------------------------------------------------------------------------
 
 #Bolivia
-Bolivia <- read_csv("https://resources.trase.earth/data/supply-chains/bolivia/soy/v1.0.0/bolivia-soy-v1.0.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
+Bolivia <- read.csv("https://resources.trase.earth/data/supply-chains/bolivia/soy/v1.0.0/bolivia-soy-v1.0.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
   mutate(product = "Soy")
 
 ##------------------------------------------------------------------------------
 
 #Brazil
 Brazil_Load <- list(
-  Beef = read_csv("https://resources.trase.earth/data/supply-chains/brazil/beef/v2.2.0/brazil-beef-v2.2.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  Beef = read.csv("https://resources.trase.earth/data/supply-chains/brazil/beef/v2.2.0/brazil-beef-v2.2.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "Beef", country = "Brazil"),
-  Chicken = read_csv("https://resources.trase.earth/data/supply-chains/brazil/chicken/v2.0.1/brazil-chicken-v2.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  Chicken = read.csv("https://resources.trase.earth/data/supply-chains/brazil/chicken/v2.0.1/brazil-chicken-v2.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "Chicken", country = "Brazil"),
-  Cocoa = read_csv("https://resources.trase.earth/data/supply-chains/brazil/cocoa/v2.5.0/brazil-cocoa-v2.5.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/brazil/cocoa/v2.5.0/brazil-cocoa-v2.5.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "Cocoa", country = "Brazil"),
-  Coffee = read_csv("https://resources.trase.earth/data/supply-chains/brazil/coffee/v2.5.1/brazil-coffee-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  Coffee = read.csv("https://resources.trase.earth/data/supply-chains/brazil/coffee/v2.5.1/brazil-coffee-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "Coffee", country = "Brazil"),
-  Corn = read_csv("https://resources.trase.earth/data/supply-chains/brazil/corn/v2.5.1/brazil-corn-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  Corn = read.csv("https://resources.trase.earth/data/supply-chains/brazil/corn/v2.5.1/brazil-corn-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "Corn", country = "Brazil"),
-  Cotton = read_csv("https://resources.trase.earth/data/supply-chains/brazil/cotton/v2.5.1/brazil-cotton-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  Cotton = read.csv("https://resources.trase.earth/data/supply-chains/brazil/cotton/v2.5.1/brazil-cotton-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "Cotton", country = "Brazil"),
-  PalmKernal = read_csv("https://resources.trase.earth/data/supply-chains/brazil/palm-kernel/v0.0.1/brazil-palm-kernel-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  PalmKernal = read.csv("https://resources.trase.earth/data/supply-chains/brazil/palm-kernel/v0.0.1/brazil-palm-kernel-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "PalmKernal", country = "Brazil"),
-  PalmOil = read_csv("https://resources.trase.earth/data/supply-chains/brazil/palm-oil/v0.0.2/brazil-palm-oil-v0.0.2-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  PalmOil = read.csv("https://resources.trase.earth/data/supply-chains/brazil/palm-oil/v0.0.2/brazil-palm-oil-v0.0.2-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "PalmOil", country = "Brazil"),
-  Pork = read_csv("https://resources.trase.earth/data/supply-chains/brazil/pork/v2.0.1/brazil-pork-v2.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  Pork = read.csv("https://resources.trase.earth/data/supply-chains/brazil/pork/v2.0.1/brazil-pork-v2.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "Pork", country = "Brazil"),
-  Soy = read_csv("https://resources.trase.earth/data/supply-chains/brazil/soy/v2.6.0/brazil-soy-v2.6.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  Soy = read.csv("https://resources.trase.earth/data/supply-chains/brazil/soy/v2.6.0/brazil-soy-v2.6.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "Soy", country = "Brazil"),
-  SugarCane = read_csv("https://resources.trase.earth/data/supply-chains/brazil/sugarcane/v0.0.1/brazil-sugarcane-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  SugarCane = read.csv("https://resources.trase.earth/data/supply-chains/brazil/sugarcane/v0.0.1/brazil-sugarcane-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "SugarCane", country = "Brazil"),
-  WoodPulp = read_csv("https://resources.trase.earth/data/supply-chains/brazil/wood-pulp/v0.0.1/brazil-wood-pulp-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+  WoodPulp = read.csv("https://resources.trase.earth/data/supply-chains/brazil/wood-pulp/v0.0.1/brazil-wood-pulp-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
     mutate(product = "WoodPulp", country = "Brazil")
 )
 Brazil <- rbindlist(lapply(Brazil_Load, as.data.frame), use.names = TRUE, fill = TRUE, idcol = "product") %>%
