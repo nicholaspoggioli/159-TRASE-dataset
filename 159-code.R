@@ -320,8 +320,8 @@ Peru <- list(
 
 glimpse(Argentina)
 glimpse(Bolivia)
-# glimpse(Brazil)
-# glimpse(Columbia)
+glimpse(Brazil)
+glimpse(Colombia)
 glimpse(CoteDIvoire)
 glimpse(Ecuador)
 glimpse(Ghana)
