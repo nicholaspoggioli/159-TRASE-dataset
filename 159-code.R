@@ -45,21 +45,21 @@ Argentina <- list(
 ) 
 Argentina <- rbindlist(Argentina, fill = TRUE)
 
-##Argentina (22 Variables) (Observations 416088)
-Argentina <- list(
-  Cotton = read.csv("https://resources.trase.earth/data/supply-chains/argentina/corn/v0.2.3/argentina-corn-v0.2.3-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "cotton", country = "Argentina"),
-  Corn = read.csv("https://resources.trase.earth/data/supply-chains/argentina/cotton/v0.2.3/argentina-cotton-v0.2.3-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "corn", country = "Argentina"),
-  Wood = read.csv("https://resources.trase.earth/data/supply-chains/argentina/soy/v1.1.1/argentina-soy-v1.1.1-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "wood-pulp", country = "Argentina"),
-  Soy = read.csv("https://resources.trase.earth/data/supply-chains/argentina/wood-pulp/v0.2.3/argentina-wood-pulp-v0.2.3-2024-01-17.csv")  %>% janitor::clean_names() %>%
-    mutate(product = "soy", country = "Argentina") # soy has more variables than others(was missing country id for soy)
-) %>%
-  rbindlist(use.names = TRUE,
-            fill = TRUE,
-            idcol = "product") %>%  #removed idcol = product 
-  select(all_of(names(.)))
+# ##Argentina (22 Variables) (Observations 416088)
+# Argentina <- list(
+#   Cotton = read.csv("https://resources.trase.earth/data/supply-chains/argentina/corn/v0.2.3/argentina-corn-v0.2.3-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "cotton", country = "Argentina"),
+#   Corn = read.csv("https://resources.trase.earth/data/supply-chains/argentina/cotton/v0.2.3/argentina-cotton-v0.2.3-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "corn", country = "Argentina"),
+#   Wood = read.csv("https://resources.trase.earth/data/supply-chains/argentina/soy/v1.1.1/argentina-soy-v1.1.1-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "wood-pulp", country = "Argentina"),
+#   Soy = read.csv("https://resources.trase.earth/data/supply-chains/argentina/wood-pulp/v0.2.3/argentina-wood-pulp-v0.2.3-2024-01-17.csv")  %>% janitor::clean_names() %>%
+#     mutate(product = "soy", country = "Argentina") # soy has more variables than others(was missing country id for soy)
+# ) %>%
+#   rbindlist(use.names = TRUE,
+#             fill = TRUE,
+#             idcol = "product") %>%  #removed idcol = product 
+#   select(all_of(names(.)))
 
 ##------------------------------------------------------------------------------
 
@@ -68,9 +68,9 @@ Bolivia <- read.csv("https://drive.google.com/uc?id=1alOoHuKgzpSxhb0LNowT5a261Ha
   janitor::clean_names() %>%
   mutate(product = "Soy", country = "Bolivia")
 
-#Bolivia (19 Variables) (14793 Observations)
-Bolivia <- read.csv("https://resources.trase.earth/data/supply-chains/bolivia/soy/v1.0.0/bolivia-soy-v1.0.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
-  mutate(product = "Soy")
+# #Bolivia (19 Variables) (14793 Observations)
+# Bolivia <- read.csv("https://resources.trase.earth/data/supply-chains/bolivia/soy/v1.0.0/bolivia-soy-v1.0.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#   mutate(product = "Soy")
 
 ##------------------------------------------------------------------------------
 
@@ -104,36 +104,36 @@ Brazil <- list(
 
 Brazil <- rbindlist(Brazil, fill = TRUE, idcol = "product")
 
-#Brazil (I get the timeout error as well but originally when created it worked so not sure what changed- maybe run on my home computer w faster processing)
-Brazil_Load <- list(
-  Beef = read.csv("https://resources.trase.earth/data/supply-chains/brazil/beef/v2.2.0/brazil-beef-v2.2.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "Beef", country = "Brazil"),
-  Chicken = read.csv("https://resources.trase.earth/data/supply-chains/brazil/chicken/v2.0.1/brazil-chicken-v2.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "Chicken", country = "Brazil"),
-  Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/brazil/cocoa/v2.5.0/brazil-cocoa-v2.5.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "Cocoa", country = "Brazil"),
-  Coffee = read.csv("https://resources.trase.earth/data/supply-chains/brazil/coffee/v2.5.1/brazil-coffee-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "Coffee", country = "Brazil"),
-  Corn = read.csv("https://resources.trase.earth/data/supply-chains/brazil/corn/v2.5.1/brazil-corn-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "Corn", country = "Brazil"),
-  Cotton = read.csv("https://resources.trase.earth/data/supply-chains/brazil/cotton/v2.5.1/brazil-cotton-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "Cotton", country = "Brazil"),
-  PalmKernal = read.csv("https://resources.trase.earth/data/supply-chains/brazil/palm-kernel/v0.0.1/brazil-palm-kernel-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "PalmKernal", country = "Brazil"),
-  PalmOil = read.csv("https://resources.trase.earth/data/supply-chains/brazil/palm-oil/v0.0.2/brazil-palm-oil-v0.0.2-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "PalmOil", country = "Brazil"),
-  Pork = read.csv("https://resources.trase.earth/data/supply-chains/brazil/pork/v2.0.1/brazil-pork-v2.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "Pork", country = "Brazil"),
-  Soy = read.csv("https://resources.trase.earth/data/supply-chains/brazil/soy/v2.6.0/brazil-soy-v2.6.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "Soy", country = "Brazil"),
-  SugarCane = read.csv("https://resources.trase.earth/data/supply-chains/brazil/sugarcane/v0.0.1/brazil-sugarcane-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "SugarCane", country = "Brazil"),
-  WoodPulp = read.csv("https://resources.trase.earth/data/supply-chains/brazil/wood-pulp/v0.0.1/brazil-wood-pulp-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
-    mutate(product = "WoodPulp", country = "Brazil")
-)
-Brazil <- rbindlist(lapply(Brazil_Load, as.data.frame), use.names = TRUE, fill = TRUE, idcol = "product") %>%
-  select(all_of(names(.)))
-rm(Brazil_Load)
+# #Brazil (I get the timeout error as well but originally when created it worked so not sure what changed- maybe run on my home computer w faster processing)
+# Brazil_Load <- list(
+#   Beef = read.csv("https://resources.trase.earth/data/supply-chains/brazil/beef/v2.2.0/brazil-beef-v2.2.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "Beef", country = "Brazil"),
+#   Chicken = read.csv("https://resources.trase.earth/data/supply-chains/brazil/chicken/v2.0.1/brazil-chicken-v2.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "Chicken", country = "Brazil"),
+#   Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/brazil/cocoa/v2.5.0/brazil-cocoa-v2.5.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "Cocoa", country = "Brazil"),
+#   Coffee = read.csv("https://resources.trase.earth/data/supply-chains/brazil/coffee/v2.5.1/brazil-coffee-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "Coffee", country = "Brazil"),
+#   Corn = read.csv("https://resources.trase.earth/data/supply-chains/brazil/corn/v2.5.1/brazil-corn-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "Corn", country = "Brazil"),
+#   Cotton = read.csv("https://resources.trase.earth/data/supply-chains/brazil/cotton/v2.5.1/brazil-cotton-v2.5.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "Cotton", country = "Brazil"),
+#   PalmKernal = read.csv("https://resources.trase.earth/data/supply-chains/brazil/palm-kernel/v0.0.1/brazil-palm-kernel-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "PalmKernal", country = "Brazil"),
+#   PalmOil = read.csv("https://resources.trase.earth/data/supply-chains/brazil/palm-oil/v0.0.2/brazil-palm-oil-v0.0.2-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "PalmOil", country = "Brazil"),
+#   Pork = read.csv("https://resources.trase.earth/data/supply-chains/brazil/pork/v2.0.1/brazil-pork-v2.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "Pork", country = "Brazil"),
+#   Soy = read.csv("https://resources.trase.earth/data/supply-chains/brazil/soy/v2.6.0/brazil-soy-v2.6.0-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "Soy", country = "Brazil"),
+#   SugarCane = read.csv("https://resources.trase.earth/data/supply-chains/brazil/sugarcane/v0.0.1/brazil-sugarcane-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "SugarCane", country = "Brazil"),
+#   WoodPulp = read.csv("https://resources.trase.earth/data/supply-chains/brazil/wood-pulp/v0.0.1/brazil-wood-pulp-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>% 
+#     mutate(product = "WoodPulp", country = "Brazil")
+# )
+# Brazil <- rbindlist(lapply(Brazil_Load, as.data.frame), use.names = TRUE, fill = TRUE, idcol = "product") %>%
+#   select(all_of(names(.)))
+# rm(Brazil_Load)
 
 ##------------------------------------------------------------------------------
 
@@ -155,25 +155,25 @@ Colombia <- list(
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
 
-##Columbia (18 Variables- Less Observations 42192) (ALso realized ive been spelling the country wrong)
-Columbia <- list(
-  Beef = read.csv("https://resources.trase.earth/data/supply-chains/colombia/beef/v0.0.1/colombia-beef-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Beef", country = "Columbia"),
-  Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/colombia/cocoa/v0.0.0/colombia-cocoa-v0.0.0-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Cocoa", country = "Columbia"),
-  Coffee = read.csv("https://resources.trase.earth/data/supply-chains/colombia/coffee/v1.0.3/colombia-coffee-v1.0.3-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Coffee", country = "Columbia"),
-  Palm_Kernal = read.csv("https://resources.trase.earth/data/supply-chains/colombia/palm-kernel/v0.0.1/colombia-palm-kernel-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Palm-Kernal", country = "Columbia"),
-  Palm_Oil = read.csv("https://resources.trase.earth/data/supply-chains/colombia/palm-oil/v0.0.3/colombia-palm-oil-v0.0.3-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Palm-Oil", country = "Columbia"),
-  Wood_Pulp = read.csv("https://resources.trase.earth/data/supply-chains/colombia/wood-pulp/v0.0.1/colombia-wood-pulp-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Wood-Pulp", country = "Columbia")
-) %>%
-  rbindlist(use.names = TRUE,
-            fill = TRUE,
-            idcol = "product") %>%
-  select(all_of(names(.)))
+# ##Columbia (18 Variables- Less Observations 42192) (ALso realized ive been spelling the country wrong)
+# Columbia <- list(
+#   Beef = read.csv("https://resources.trase.earth/data/supply-chains/colombia/beef/v0.0.1/colombia-beef-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Beef", country = "Columbia"),
+#   Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/colombia/cocoa/v0.0.0/colombia-cocoa-v0.0.0-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Cocoa", country = "Columbia"),
+#   Coffee = read.csv("https://resources.trase.earth/data/supply-chains/colombia/coffee/v1.0.3/colombia-coffee-v1.0.3-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Coffee", country = "Columbia"),
+#   Palm_Kernal = read.csv("https://resources.trase.earth/data/supply-chains/colombia/palm-kernel/v0.0.1/colombia-palm-kernel-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Palm-Kernal", country = "Columbia"),
+#   Palm_Oil = read.csv("https://resources.trase.earth/data/supply-chains/colombia/palm-oil/v0.0.3/colombia-palm-oil-v0.0.3-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Palm-Oil", country = "Columbia"),
+#   Wood_Pulp = read.csv("https://resources.trase.earth/data/supply-chains/colombia/wood-pulp/v0.0.1/colombia-wood-pulp-v0.0.1-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Wood-Pulp", country = "Columbia")
+# ) %>%
+#   rbindlist(use.names = TRUE,
+#             fill = TRUE,
+#             idcol = "product") %>%
+#   select(all_of(names(.)))
 
 ##------------------------------------------------------------------------------
 #CoteDIvoire (Drive) (17 Variables) (27636 Obs)
@@ -184,15 +184,15 @@ CoteDIvoire <- list(
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
 
-#CoteDIvoire (17 Variables) (Observations- 27636)
-CoteDIvoire <- list(
-  Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/cote-divoire/cocoa/v1.0.5/cote-divoire-cocoa-v1.0.5-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Cocoa", country = "CoteDIvoire")
-) %>%
-  rbindlist(use.names = TRUE,
-            fill = TRUE,
-            idcol = "product") %>%
-  select(all_of(names(.)))
+# #CoteDIvoire (17 Variables) (Observations- 27636)
+# CoteDIvoire <- list(
+#   Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/cote-divoire/cocoa/v1.0.5/cote-divoire-cocoa-v1.0.5-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Cocoa", country = "CoteDIvoire")
+# ) %>%
+#   rbindlist(use.names = TRUE,
+#             fill = TRUE,
+#             idcol = "product") %>%
+#   select(all_of(names(.)))
 ##------------------------------------------------------------------------------
 #Ecuador (Drive) (22 Var) (206459 Obs)
 Ecuador <- list(
@@ -204,17 +204,17 @@ Ecuador <- list(
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
 
-#Ecuador (22 Variables) (106359 Observations)
-Ecuador <- list(
-  Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/ecuador/cocoa/v0.0.0/ecuador-cocoa-v0.0.0-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Cocoa", country = "Ecuador"),
-  Shrimp = read.csv("https://resources.trase.earth/data/supply-chains/ecuador/shrimp/v1.0.1/ecuador-shrimp-v1.0.1-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Shrimp" , country = "Ecuador")
-) %>%
-  rbindlist(use.names = TRUE,
-            fill = TRUE,
-            idcol = "product") %>%
-  select(all_of(names(.)))
+# #Ecuador (22 Variables) (106359 Observations)
+# Ecuador <- list(
+#   Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/ecuador/cocoa/v0.0.0/ecuador-cocoa-v0.0.0-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Cocoa", country = "Ecuador"),
+#   Shrimp = read.csv("https://resources.trase.earth/data/supply-chains/ecuador/shrimp/v1.0.1/ecuador-shrimp-v1.0.1-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Shrimp" , country = "Ecuador")
+# ) %>%
+#   rbindlist(use.names = TRUE,
+#             fill = TRUE,
+#             idcol = "product") %>%
+#   select(all_of(names(.)))
 
 ##------------------------------------------------------------------------------
 #Ghana (Drive) (13 Variables-2111 Observations)
@@ -225,15 +225,15 @@ Ghana <- list(
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
 
-#Ghana (13 Variables) (2111 Observations)
-Ghana <- list(
-  Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/ghana/cocoa/v0.0.2/ghana-cocoa-v0.0.2-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Cocoa" , country = "Ghana")
-) %>%
-  rbindlist(use.names = TRUE,
-            fill = TRUE,
-            idcol = "product") %>%
-  select(all_of(names(.)))
+# #Ghana (13 Variables) (2111 Observations)
+# Ghana <- list(
+#   Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/ghana/cocoa/v0.0.2/ghana-cocoa-v0.0.2-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Cocoa" , country = "Ghana")
+# ) %>%
+#   rbindlist(use.names = TRUE,
+#             fill = TRUE,
+#             idcol = "product") %>%
+#   select(all_of(names(.)))
 
 ##------------------------------------------------------------------------------
 #Indonesia (Drive) (19 Variables- Obs 60488)
@@ -248,19 +248,19 @@ Indonesia <- list(
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
 
-#Indonesia (57 Variables) (1835367 Observations)
-Indonesia <- list(
-  Palm_Oil = read.csv("https://resources.trase.earth/data/supply-chains/indonesia/palm-oil/v1.2.1/indonesia-palm-oil-v1.2.1-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Palm_Oil", country = "Indonesia"),
-  Shrimp = read.csv("https://resources.trase.earth/data/supply-chains/indonesia/shrimp/v1.0.0/indonesia-shrimp-v1.0.0-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Shrimp", country = "Indonesia"),
-  Wood_Pulp = read.csv("https://resources.trase.earth/data/supply-chains/indonesia/wood-pulp/v3.1.0/indonesia-wood-pulp-v3.1.0-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Wood_Pulp", country = "Indonesia")
-) %>%
-  rbindlist(use.names = TRUE,
-            fill = TRUE,
-            idcol = "product") %>%
-  select(all_of(names(.)))
+# #Indonesia (57 Variables) (1835367 Observations)
+# Indonesia <- list(
+#   Palm_Oil = read.csv("https://resources.trase.earth/data/supply-chains/indonesia/palm-oil/v1.2.1/indonesia-palm-oil-v1.2.1-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Palm_Oil", country = "Indonesia"),
+#   Shrimp = read.csv("https://resources.trase.earth/data/supply-chains/indonesia/shrimp/v1.0.0/indonesia-shrimp-v1.0.0-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Shrimp", country = "Indonesia"),
+#   Wood_Pulp = read.csv("https://resources.trase.earth/data/supply-chains/indonesia/wood-pulp/v3.1.0/indonesia-wood-pulp-v3.1.0-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Wood_Pulp", country = "Indonesia")
+# ) %>%
+#   rbindlist(use.names = TRUE,
+#             fill = TRUE,
+#             idcol = "product") %>%
+#   select(all_of(names(.)))
 
 ##------------------------------------------------------------------------------
 ##Paraguay (Drive) (23 Variables - Obs 26714)
@@ -275,19 +275,19 @@ Paraguay <- list(
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
 
-##Paraguay (26 Variables) (30258 Observations)
-Paraguay <- list(
-  Beef = read.csv("https://resources.trase.earth/data/supply-chains/paraguay/beef/v1.2.4/paraguay-beef-v1.2.4-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Beef", country = "Paraguay"),
-  Corn = read.csv("https://resources.trase.earth/data/supply-chains/paraguay/corn/v1.0.0/paraguay-corn-v1.0.0-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "corn", country = "Paraguay"),
-  Soy = read.csv("https://resources.trase.earth/data/supply-chains/paraguay/soy/v1.2.6/paraguay-soy-v1.2.6-2024-01-17.csv")  %>% janitor::clean_names() %>%
-    mutate(product = "soy", country = "Paraguay")
-) %>%
-  rbindlist(use.names = TRUE,
-            fill = TRUE,
-            idcol = "product") %>%
-  select(all_of(names(.)))
+# ##Paraguay (26 Variables) (30258 Observations)
+# Paraguay <- list(
+#   Beef = read.csv("https://resources.trase.earth/data/supply-chains/paraguay/beef/v1.2.4/paraguay-beef-v1.2.4-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Beef", country = "Paraguay"),
+#   Corn = read.csv("https://resources.trase.earth/data/supply-chains/paraguay/corn/v1.0.0/paraguay-corn-v1.0.0-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "corn", country = "Paraguay"),
+#   Soy = read.csv("https://resources.trase.earth/data/supply-chains/paraguay/soy/v1.2.6/paraguay-soy-v1.2.6-2024-01-17.csv")  %>% janitor::clean_names() %>%
+#     mutate(product = "soy", country = "Paraguay")
+# ) %>%
+#   rbindlist(use.names = TRUE,
+#             fill = TRUE,
+#             idcol = "product") %>%
+#   select(all_of(names(.)))
 ##------------------------------------------------------------------------------
 
 ##Peru (Drive) (11 Variables- Obs 15554)
@@ -303,19 +303,19 @@ Peru <- list(
   select(all_of(names(.)))
 
 
-##Peru (11 Variables) (15554 Observations)
-Peru <- list(
-  Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/peru/cocoa/v0.1.0/peru-cocoa-v0.1.0-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Cocoa", country = "Peru"),
-  Coffee = read.csv("https://resources.trase.earth/data/supply-chains/peru/coffee/v0.2.0/peru-coffee-v0.2.0-2024-01-17.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Coffee", country = "Peru"),
-  Shrimp = read.csv("https://resources.trase.earth/data/supply-chains/peru/shrimp/v0.0.1/peru-shrimp-v0.0.1-2024-01-17.csv")  %>% janitor::clean_names() %>%
-    mutate(product = "Shrimp", country = "Peru")
-) %>%
-  rbindlist(use.names = TRUE,
-            fill = TRUE,
-            idcol = "product") %>%
-  select(all_of(names(.)))
+# ##Peru (11 Variables) (15554 Observations)
+# Peru <- list(
+#   Cocoa = read.csv("https://resources.trase.earth/data/supply-chains/peru/cocoa/v0.1.0/peru-cocoa-v0.1.0-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Cocoa", country = "Peru"),
+#   Coffee = read.csv("https://resources.trase.earth/data/supply-chains/peru/coffee/v0.2.0/peru-coffee-v0.2.0-2024-01-17.csv") %>% janitor::clean_names() %>%
+#     mutate(product = "Coffee", country = "Peru"),
+#   Shrimp = read.csv("https://resources.trase.earth/data/supply-chains/peru/shrimp/v0.0.1/peru-shrimp-v0.0.1-2024-01-17.csv")  %>% janitor::clean_names() %>%
+#     mutate(product = "Shrimp", country = "Peru")
+# ) %>%
+#   rbindlist(use.names = TRUE,
+#             fill = TRUE,
+#             idcol = "product") %>%
+#   select(all_of(names(.)))
 ##------------------------------------------------------------------------------
 
 glimpse(Argentina)
