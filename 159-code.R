@@ -410,8 +410,4 @@ Unique_combined <- common_data %>%
   )
 
 
-#   To do
-#     1.  Unique_combined: Create a table of all unique combinations of exporter,
-#         year, country_of_destination, product, and country_of_production. The
-#         point of this is to identify all unique company names in the exporter
-#         column.
+
