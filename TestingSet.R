@@ -1,4 +1,4 @@
-# |- Clean the global environment ----
+# Clean the global environment ----
 rm(list = ls())
 while (!is.null(dev.list())) {
   dev.off(dev.list()["RStudioGD"])
@@ -28,13 +28,14 @@ ipak(c(
   "httr"
 ))
 
-# |- Setup Working Directory ----
+## |- Setup Working Directory
 path <- dirname(rstudioapi::getActiveDocumentContext()$path)
 setwd(path)
 
-##------------------------------------------------------------------------------
-#Individual Products 
 
+# Argentina --------------------------------------------------------------------
+
+#Individual Products 
 #(1165 Obs-9 Variables)
 ArgentinaCotton <- read.csv("https://drive.google.com/uc?id=1xn4DXkDUAMc_U1aKx6kv_MBUAZrBqX8_", header = TRUE, fill = TRUE)
 
@@ -47,7 +48,6 @@ ArgentinaWood <- read.csv("https://drive.google.com/uc?id=16SIPkhkTKw8exutwuygmV
 #(406882 Obs-20 Variables)
 ArgentinaSoy <- read.csv("https://drive.google.com/uc?id=13YIKtNUnaB7ik2yKeAHUS4Br4haJsiRX", header = TRUE, fill = TRUE)
 
-##------------------------------------------------------------------------------
 ##Argentina (Drive) (22 Variables) (416088 Observations) (Correct)
 Argentina <- list(
   Cotton = read.csv("https://drive.google.com/uc?id=1xn4DXkDUAMc_U1aKx6kv_MBUAZrBqX8_") %>% janitor::clean_names() %>%
@@ -59,15 +59,18 @@ Argentina <- list(
   Soy = read.csv("https://drive.google.com/uc?id=13YIKtNUnaB7ik2yKeAHUS4Br4haJsiRX")  %>% janitor::clean_names() %>%
     mutate(product = "soy", country = "Argentina") # soy has more variables than others
 ) 
+
 Argentina <- rbindlist(Argentina, fill = TRUE)
 
-##------------------------------------------------------------------------------
+
+
+# Bolivia ---------------------------------------------------------------------
 #Bolivia (Drive) (19 Variables) (14793 Observations)
 Bolivia <- read.csv("https://drive.google.com/uc?id=1alOoHuKgzpSxhb0LNowT5a261HaPp_kI") %>% 
   janitor::clean_names() %>%
   mutate(product = "Soy", country = "Bolivia")
 
-##------------------------------------------------------------------------------
+# Brazil -----------------------------------------------------------------------
 #Individual Products Brazil
 
 #(50190 Obs-21 Variables)
@@ -100,7 +103,7 @@ BrazilWoodPulp <- read.csv("https://drive.google.com/uc?id=1uoCoOrUc0j_p3VRCIVgp
 #(50190 Obs- 21 variables)
 BrazilChicken <- read.csv("https://drive.google.com/uc?export=download&id=1yPl5Uniq2BI4D2fo0oJCHWyd9LL9RhjT", header = TRUE, fill = TRUE)
 
-#These do not load properly (testing)-------------------------------------------
+# These do not load properly (testing)
 BrazilBeef <- read.csv("https://drive.google.com/uc?id=1PvDD4J7DQF2kpyElC3Xo7v05O-tFpdYD", header = TRUE, fill = TRUE)
 
 BrazilSugarCane <- read.csv("https://drive.google.com/uc?id=1GhkZBK0eRU8YFFU7uU7xsTnOdaBvGglL", header = TRUE, fill = TRUE)
@@ -152,29 +155,30 @@ Brazil <- list(
 
 Brazil <- rbindlist(Brazil, fill = TRUE, idcol = "product")
 
-##------------------------------------------------------------------------------
-#Individual Products Columbia
+
+# Colombia ---------------------------------------------------------------------
+#Individual Products Colombia
 
 #(902 Obs-10 Variables)
-ColumbiaBeef <- read.csv("https://drive.google.com/uc?id=1sbJ0RITKW2v2mfXYHkuava45e7eL8YFA", header = TRUE, fill = TRUE)
+ColombiaBeef <- read.csv("https://drive.google.com/uc?id=1sbJ0RITKW2v2mfXYHkuava45e7eL8YFA", header = TRUE, fill = TRUE)
 
 #Problem File
-ColumbiaCocoa <- read.csv("https://drive.google.com/file/d/1poEx5Iae29sGMhriC8anXYfrIzJeZqkK/view?usp=drive_link", header = TRUE, fill = TRUE)
+ColombiaCocoa <- read.csv("https://drive.google.com/file/d/1poEx5Iae29sGMhriC8anXYfrIzJeZqkK/view?usp=drive_link", header = TRUE, fill = TRUE)
 
 #(1242 Obs-11 Variables)
-ColumbiaCoffee <- read.csv("https://drive.google.com/uc?id=1poEx5Iae29sGMhriC8anXYfrIzJeZqkK", header = TRUE, fill = TRUE)
+ColombiaCoffee <- read.csv("https://drive.google.com/uc?id=1poEx5Iae29sGMhriC8anXYfrIzJeZqkK", header = TRUE, fill = TRUE)
 
 #(38948 Obs-15 Variables)
-ColumbiaPalmKernel <- read.csv("https://drive.google.com/uc?id=140T49-DuaJhxIohiQNT8SJHng-iaTiWY", header = TRUE, fill = TRUE)
+ColombiaPalmKernel <- read.csv("https://drive.google.com/uc?id=140T49-DuaJhxIohiQNT8SJHng-iaTiWY", header = TRUE, fill = TRUE)
 
 #(375 Obs- 10 Variables)
-ColumbiaPalmOil <- read.csv("https://drive.google.com/uc?id=1a2jM721pQ1gPnR4NLFYFUM70Sfg02ZC7", header = TRUE, fill = TRUE)
+ColombiaPalmOil <- read.csv("https://drive.google.com/uc?id=1a2jM721pQ1gPnR4NLFYFUM70Sfg02ZC7", header = TRUE, fill = TRUE)
 
 #(698 Obs-10 Variables)
-ColumbiaWoodPulp <- read.csv("https://drive.google.com/uc?id=1MK91_YpApl4ygS4SWgDrCbA9eakwKjQI", header = TRUE, fill = TRUE)
+ColombiaWoodPulp <- read.csv("https://drive.google.com/uc?id=1MK91_YpApl4ygS4SWgDrCbA9eakwKjQI", header = TRUE, fill = TRUE)
 
 
-##------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ##Colombia (Drive) (18 Variables) (43067 Observations) (Correct)
 Colombia <- list(
   Beef = read.csv("https://drive.google.com/uc?id=1sbJ0RITKW2v2mfXYHkuava45e7eL8YFA") %>% janitor::clean_names() %>%
@@ -193,7 +197,7 @@ Colombia <- list(
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
 
-##------------------------------------------------------------------------------
+# Cote d'Ivoire ----------------------------------------------------------------
 #CoteDIvoire (Drive) (17 Variables) (27636 Obs)
 CoteDIvoire <- list(
   Cocoa = read.csv("https://drive.google.com/uc?id=1_p6gCQZ02ICnsvNupRzwwa4j2Sv_xBOm") %>% janitor::clean_names() %>%
@@ -202,7 +206,7 @@ CoteDIvoire <- list(
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
 
-##------------------------------------------------------------------------------
+# Ecuador ----------------------------------------------------------------------
 #Individual Products Ecuador
 #(9517 Obs-11 Variables)
 EcuadorCocoa <- read.csv("https://drive.google.com/uc?id=1wymOQWWKLjhLWZ_0Fs-9TlQ1hP7mM2yS", header = TRUE, fill = TRUE)
@@ -210,7 +214,7 @@ EcuadorCocoa <- read.csv("https://drive.google.com/uc?id=1wymOQWWKLjhLWZ_0Fs-9Tl
 #(96842 Obs-19 Variables)
 EcuadorShrimp <- read.csv("https://drive.google.com/uc?id=1cO0swS-RBHXBxda4p7tcL5h7XFUmP5db", header = TRUE, fill = TRUE)
 
-##------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 #Ecuador (Drive) (22 Var) (106359 Obs) (Correct)
 Ecuador <- list(
   Cocoa = read.csv("https://drive.google.com/uc?id=1wymOQWWKLjhLWZ_0Fs-9TlQ1hP7mM2yS") %>% janitor::clean_names() %>%
@@ -222,7 +226,7 @@ Ecuador <- list(
   select(all_of(names(.)))
 
 
-##------------------------------------------------------------------------------
+# Ghana ------------------------------------------------------------------------
 #Ghana (Drive) (13 Variables-2111 Observations)
 Ghana <- read.csv("https://drive.google.com/uc?id=1d1qbfB6zyhmsZnvgMb0RL0jTYzHjB0hS") %>%
   janitor::clean_names() %>%
@@ -230,7 +234,7 @@ Ghana <- read.csv("https://drive.google.com/uc?id=1d1qbfB6zyhmsZnvgMb0RL0jTYzHjB
   select(all_of(names(.)))
 
 
-##------------------------------------------------------------------------------
+# Indonesia --------------------------------------------------------------------
 #Individual Products Indonesia
 
 #Problems Loading
@@ -251,7 +255,7 @@ IndonesiaShrimp <- read.csv("https://drive.google.com/uc?id=10iZjP6QoRSqHOi-kI4y
 IndonesiaWoodPulp <- read.csv("https://drive.google.com/uc?export=download&id=1w0k1T9bhT3xsrTggMpuLV4w2WtJlkezr", header = TRUE, fill = TRUE)
 
 
-##------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 #Indonesia (Drive) 
 Indonesia <- list(
   Palm_Oil = read.csv("https://drive.google.com/uc?id=1dwNPuzTnl4eXtmVan-vXNddcfkBXFg6m") %>% janitor::clean_names() %>%
@@ -264,7 +268,7 @@ Indonesia <- list(
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
 
-##------------------------------------------------------------------------------
+# Paraguay ---------------------------------------------------------------------
 #Individual Products Paraguay
 #(7924 Observations- 18 Variables)
 ParaguayBeef <- read.csv("https://drive.google.com/uc?id=1-GuZ_gIS_lrZGOwM_1UsgwHgDkFSMXjA", header = TRUE, fill = TRUE)
@@ -275,7 +279,7 @@ ParaguayCorn <- read.csv("https://drive.google.com/uc?id=1IwD7SmzIXOTyQX2ZNtVefP
 #(4234 Obs- 16 Variables)
 ParaguaySoy <- read.csv('https://drive.google.com/uc?export=download&id=1lyuLHwHRyYvMRc7oM4uI_0sPQ0KuPZ1L', sep = ",", quote = "\"")
 
-##------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 ##Paraguay (Drive) (Correct) (21553 Obs- 25 Variables)
 Paraguay <- list(
   Beef = read.csv("https://drive.google.com/uc?id=1-GuZ_gIS_lrZGOwM_1UsgwHgDkFSMXjA") %>% janitor::clean_names() %>%
@@ -288,7 +292,7 @@ Paraguay <- list(
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
 
-##------------------------------------------------------------------------------
+# Peru -------------------------------------------------------------------------
 #Individual Products Peru
 #(6064 Obs- 9 Variables)
 PeruCocoa <- read.csv("https://drive.google.com/uc?id=1ZjN4jZfLUVej-ubT7xaBz-Uezqn5Hu6M", header = TRUE, fill = TRUE)
