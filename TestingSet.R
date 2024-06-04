@@ -24,7 +24,8 @@ ipak(c(
   "forecast",
   "lmtest",
   "ggpmisc",
-  "ggpubr"
+  "ggpubr",
+  "httr"
 ))
 
 # |- Setup Working Directory ----
@@ -96,18 +97,36 @@ BrazilSoy <- read.csv("https://drive.google.com/uc?id=1UVVXeRyWcEwrnQV-aBF4jpTnf
 #(7353 Obs- 9 Variables)
 BrazilWoodPulp <- read.csv("https://drive.google.com/uc?id=1uoCoOrUc0j_p3VRCIVgpcm_1UyTVwBur", header = TRUE, fill = TRUE)
 
-#These do not load properly
-BrazilBeef <- read.csv("https://drive.google.com/uc?id=1PvDD4J7DQF2kpyElC3Xo7v05O-tFpdYD", header = TRUE, fill = TRUE)
+#(50190 Obs- 21 variables)
+BrazilChicken <- read.csv("https://drive.google.com/uc?export=download&id=1yPl5Uniq2BI4D2fo0oJCHWyd9LL9RhjT", header = TRUE, fill = TRUE)
 
-BrazilChicken <- read.csv("", header = TRUE, fill = TRUE)
+#These do not load properly (testing)-------------------------------------------
+BrazilBeef <- read.csv("https://drive.google.com/uc?id=1PvDD4J7DQF2kpyElC3Xo7v05O-tFpdYD", header = TRUE, fill = TRUE)
 
 BrazilSugarCane <- read.csv("https://drive.google.com/uc?id=1GhkZBK0eRU8YFFU7uU7xsTnOdaBvGglL", header = TRUE, fill = TRUE)
 
+BrazilBeef <- read.csv("https://drive.google.com/uc?id=1PvDD4J7DQF2kpyElC3Xo7v05O-tFpdYD", 
+                       header = TRUE, 
+                       stringsAsFactors = FALSE)
+
+BrazilBeef <- read.table("https://drive.google.com/uc?id=1PvDD4J7DQF2kpyElC3Xo7v05O-tFpdYD", header = TRUE, sep = ",", fill = TRUE)
+
+# Open the file in append mode and write a newline character
+cat("\n", file = "https://drive.google.com/uc?id=1GhkZBK0eRU8YFFU7uU7xsTnOdaBvGglL", append = TRUE)
+
+#Testing file upload vs google drive
+#(7353 Obs- 9 Variables)
+brazil_sugarcane <- read_csv("brazil-sugarcane-v0.0.1-2024-01-17.csv")
+
+#(6439259 obs- 23 variables)
+brazil_beef <- read_csv("brazil-beef-v2.2.0-2024-01-17.csv")
+
+--------------------------------------------------------------------------------
 #Brazil Corrections Sugar Cane, Beef, and Chicken Fail to load properly
 Brazil <- list(
   Beef = read.csv("https://drive.google.com/uc?id=1PvDD4J7DQF2kpyElC3Xo7v05O-tFpdYD", fill = TRUE) %>% janitor::clean_names() %>% 
     mutate(product = "Beef", country = "Brazil"),
-  Chicken = read.csv("", fill = TRUE) %>% janitor::clean_names() %>% 
+  Chicken = read.csv("https://drive.google.com/uc?export=download&id=1yPl5Uniq2BI4D2fo0oJCHWyd9LL9RhjT", fill = TRUE) %>% janitor::clean_names() %>% 
     mutate(product = "Chicken", country = "Brazil"),
   Cocoa = read.csv("https://drive.google.com/uc?id=1yPl5Uniq2BI4D2fo0oJCHWyd9LL9RhjT", fill = TRUE) %>% janitor::clean_names() %>% 
     mutate(product = "Cocoa", country = "Brazil"),
@@ -214,10 +233,15 @@ Ghana <- read.csv("https://drive.google.com/uc?id=1d1qbfB6zyhmsZnvgMb0RL0jTYzHjB
 ##------------------------------------------------------------------------------
 #Individual Products Indonesia
 
-#Problmes Loading
+#Problems Loading
 IndonesiaPalmOil <- read.csv("https://drive.google.com/uc?export=download&id=1lW4ifV7A8BlkhDMe0_qKEvs7_oqHiPHv", header = TRUE, fill = TRUE)
 
 IndonesiaPalmOil <- read.csv('https://drive.google.com/uc?export=download&id=1lW4ifV7A8BlkhDMe0_qKEvs7_oqHiPHv', sep = ",", quote = "\"", header = TRUE, fill = TRUE)
+
+#(1773667 obs-27 Variables)
+indonesia_palm_oil <- read_csv("indonesia-palm-oil-v1.2.1-2024-05-02.csv")
+
+-----------------------------------------
 
 
 #(30244 Obs-14 Variables)
@@ -252,7 +276,7 @@ ParaguayCorn <- read.csv("https://drive.google.com/uc?id=1IwD7SmzIXOTyQX2ZNtVefP
 ParaguaySoy <- read.csv('https://drive.google.com/uc?export=download&id=1lyuLHwHRyYvMRc7oM4uI_0sPQ0KuPZ1L', sep = ",", quote = "\"")
 
 ##------------------------------------------------------------------------------
-##Paraguay (Drive) 
+##Paraguay (Drive) (Correct) (21553 Obs- 25 Variables)
 Paraguay <- list(
   Beef = read.csv("https://drive.google.com/uc?id=1-GuZ_gIS_lrZGOwM_1UsgwHgDkFSMXjA") %>% janitor::clean_names() %>%
     mutate(product = "Beef", country = "Paraguay"),
