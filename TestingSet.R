@@ -25,12 +25,14 @@ ipak(c(
   "lmtest",
   "ggpmisc",
   "ggpubr",
-  "httr"
+  "httr",
+  "tmap"
 ))
 
 ## |- Setup Working Directory
 path <- dirname(rstudioapi::getActiveDocumentContext()$path)
 setwd(path)
+
 
 #--------------------------------------------------------------------------------
 #Notes
@@ -78,20 +80,6 @@ Bolivia <- read.csv("https://drive.google.com/uc?id=1alOoHuKgzpSxhb0LNowT5a261Ha
 
 # Brazil -----------------------------------------------------------------------
 #Individual Products Brazil
-
-
-#Chicken link: https://drive.google.com/uc?id=1yPl5Uniq2BI4D2fo0oJCHWyd9LL9RhjT
-#Cocoa link: https://drive.google.com/uc?id=1JCYpvbhHdpSljdae_qCOd5NgeDmH9ldH
-#Coffee: https://drive.google.com/uc?id=1DpFdAv5BSR_7x2Q9nN0j1oTHiAOTmxRF
-#Corn: https://drive.google.com/uc?id=1Mts3F0k3U6H0RRksw5XHt8Z06u4CCALi
-#Cotton: https://drive.google.com/uc?id=14H83dAx3QN3r1Zm5Sdnl-nprjSASvEN2
-#PalmKernal: https://drive.google.com/uc?id=1RrBZnbU03TqpjLMBwFHKBGv3kbX2N-Wh
-#PalmOil: https://drive.google.com/uc?id=1SfU4sltTvRoMsKgjbquR6rpImX1oTajo
-#Pork: https://drive.google.com/uc?id=1UVVXeRyWcEwrnQV-aBF4jpTnfybMo44T
-#SugarCane: https://drive.google.com/uc?id=1uoCoOrUc0j_p3VRCIVgpcm_1UyTVwBur
-#Beef: https://drive.google.com/uc?id=1PvDD4J7DQF2kpyElC3Xo7v05O-tFpdYD
-#Soy: https://drive.google.com/uc?export=download&id=1GhkZBK0eRU8YFFU7uU7xsTnOdaBvGglL
-#WoodPulp: https://drive.google.com/uc?export=download&id=1ONKwEtzAA-gOoX6yMIie6Dq4_H5ifdqW
 
 #(1293 obs-18 Variables)
 BrazilCocoa <- read.csv("https://drive.google.com/uc?id=1JCYpvbhHdpSljdae_qCOd5NgeDmH9ldH", header = TRUE, fill = TRUE)
@@ -283,7 +271,7 @@ ParaguayBeef <- read.csv("https://drive.google.com/uc?id=1-GuZ_gIS_lrZGOwM_1Usgw
 ParaguayCorn <- read.csv("https://drive.google.com/uc?id=1IwD7SmzIXOTyQX2ZNtVefPx84dzuCoKJ", header = TRUE, fill = TRUE)
 
 #(4234 Obs- 16 Variables)
-ParaguaySoy <- read.csv('https://drive.google.com/uc?export=download&id=1lyuLHwHRyYvMRc7oM4uI_0sPQ0KuPZ1L', sep = ",", quote = "\"")
+ParaguaySoy <- read.csv('https://drive.google.com/uc?export=download&id=1R3ArgyWgtODgQfaS6riwW9rGbb1kldc-', sep = ",", quote = "\"")
 
 #remove single data sets
 rm(ParaguaySoy, ParaguayCorn, ParaguayBeef)
@@ -294,7 +282,7 @@ Paraguay <- list(
     mutate(product = "Beef", country = "Paraguay"),
   Corn = read.csv("https://drive.google.com/uc?id=1IwD7SmzIXOTyQX2ZNtVefPx84dzuCoKJ") %>% janitor::clean_names() %>%
     mutate(product = "Corn", country = "Paraguay"),
-  Soy = read.csv('https://drive.google.com/uc?export=download&id=1lyuLHwHRyYvMRc7oM4uI_0sPQ0KuPZ1L', sep = ",", quote = "\"") %>% janitor::clean_names() %>%
+  Soy = read.csv('https://drive.google.com/uc?export=download&id=1R3ArgyWgtODgQfaS6riwW9rGbb1kldc-', sep = ",", quote = "\"") %>% janitor::clean_names() %>%
     mutate(product = "Soy", country = "Paraguay")
 ) %>%
   rbindlist(fill = TRUE, idcol = "product") %>%
@@ -335,22 +323,319 @@ combined_countries <- rbindlist(list(Argentina, Bolivia, Colombia, CoteDIvoire, 
 #Remove extra dataframes after completely combined
 rm(Argentina, Bolivia, Colombia, CoteDIvoire, Ecuador, Ghana, Indonesia, Paraguay, Peru, Brazil)
 
+--------------------------------------------------------------------------------
+#Cleaning
+# Check for missing values
+colSums(is.na(combined_countries))
+
+# Handle missing values (example: removing rows with NA in critical columns)
+combined_countries <- combined_countries %>% drop_na(fob) %>% drop_na(volume)
+
+# Clean column names to ensure uniqueness
+combined_countries <- clean_names(combined_countries)
+
+# Check for duplicate column names
+duplicated(names(combined_countries))
+
+# Inspect the cleaned data
+glimpse(combined_countries)
+
 #Reducing the variables for analysis
-common_vars <- c("product", "year", "country_of_production", "exporter", "country_of_destination", "volume", "fob")
+common_vars <- c("product", "year", "country_of_production", "port_of_export", "exporter", "exporter_group", "economic_bloc", "country_of_destination", "volume", "fob", "country")
 
 common_data <- combined_countries %>%
   select(all_of(common_vars))
 
 
-Unique_combined <- common_data %>%
-  distinct(year, country_of_destination, product, country_of_production, exporter) %>%
+#Shows that there are non-numeric values in fob and volume
+common_data <- combined_countries %>%
+  select(all_of(common_vars)) %>%
   mutate(
-    avg_vol = mean(common_data$volume, na.rm = TRUE)
+    fob = as.numeric(gsub("[^0-9.]", "", fob)),
+    volume = as.numeric(gsub("[^0-9.]", "", volume)),
+    year = as.numeric(year)
   )
 
+#Could be the reason not all countries are grabbed
+#Remove Na's in volume and fob
+
+#common_data <- na.omit(volume, fob)
 
 
+# Check for any issues in the conversion
+summary(common_data$fob)
+summary(common_data$volume)
+
+# Inspect the cleaned data
+glimpse(common_data)
+
+#removing to run faster after grabbing select variables
+rm(combined_countries)
+--------------------------------------------------------------------------------
+# Ensure that the 'year' column contains only valid years
+common_data %>% pull(year) %>% unique()
+
+# Check unique values in 'country_of_production'
+common_data %>% pull(country_of_production) %>% unique()
+
+# Check unique values in 'port_of_export'
+common_data %>% pull(port_of_export) %>% unique()
+
+# Check unique values in 'exporter'
+common_data %>% pull(exporter) %>% unique()
+
+# Check unique values in 'country_of_destination'
+common_data %>% pull(country_of_destination) %>% unique()
+
+# Check unique values in 'economic_bloc'
+common_data %>% pull(economic_bloc) %>% unique()
+
+#Noticed Bolivia is not present
+common_data %>% pull(country) %>% unique()
+
+#pulling all products included
+common_data %>% pull(product) %>% unique()
+
+--------------------------------------------------------------------------------
+# Summary statistics
+common_data %>%
+  select(volume, fob) %>%
+  summary()
 
 
+#Visualizations
+# Distribution of volume
+ggplot(data = common_data, mapping = aes(x = year, y = volume)) +
+  geom_point() +
+  geom_hline(yintercept = 0,
+             color = "red",
+             linetype = "dashed")+
+  theme_minimal()
 
-  
+# Volume over time
+ggplot(common_data, aes(x = year, y = volume, color = country_of_production)) +
+  geom_line() +
+  labs(title = "Volume Over Time", x = "Year", y = "Volume")
+
+
+# Distribution of fob
+ggplot(data = common_data, mapping = aes(x = year, y = fob)) +
+  geom_point() +
+  geom_hline(yintercept = 0,
+             color = "red",
+             linetype = "dashed")+
+  theme_minimal()
+
+# FOB over time
+ggplot(common_data, aes(x = year, y = fob, color = country_of_production)) +
+  geom_line() +
+  labs(title = "FOB Over Time", x = "Year", y = "FOB")
+--------------------------------------------------------------------------------
+#Averages of Volumem and Fob
+avg_measures <- common_data %>%
+  group_by(year, country_of_destination) %>%
+  summarise(
+    avg_vol = round(mean(volume, na.rm = TRUE), 2),
+    avg_fob = round(mean(fob, na.rm = TRUE), 2)
+  )
+
+avg_measures
+
+
+# This will have avg by year, by destination, by products
+avg_by_dest_product_year <- common_data %>%
+  group_by(year, country_of_destination, product) %>%
+  summarise(
+    avg_vol = round(mean(volume, na.rm = TRUE), 2),
+    avg_fob = round(mean(fob, na.rm = TRUE), 2)
+  )
+
+avg_by_dest_product_year
+
+# This will have avg by year, by destination, by products, by port as well
+avg_by_port_dest_product_year <- common_data %>%
+  group_by(year, country_of_destination, product, port_of_export) %>%
+  summarise(
+    avg_vol = round(mean(volume, na.rm = TRUE), 2),
+    avg_fob = round(mean(fob, na.rm = TRUE), 2)
+  )
+
+avg_by_port_dest_product_year
+
+#-------------------------------------------------------------------------------
+
+# We must be sure that data is adequately represented
+balance_avg_by_dest_product_year <- expand.grid(
+  year = common_data %>% pull(year) %>% unique(),
+  country_of_destination = common_data %>% pull(country_of_destination) %>% unique(),
+  product = common_data %>% pull(product) %>% unique()
+) %>%
+  merge(
+    avg_by_dest_product_year,
+    by = c("year", "country_of_destination", "product"),
+    all.x = T
+  )
+
+#Shows instances where products never go to this country?
+head(balance_avg_by_dest_product_year)
+#Just double checking
+colSums(is.na(common_data))
+
+#Include the port of export
+balance_avg_by_port_dest_product_year <- expand.grid(
+  year = common_data %>% pull(year) %>% unique(),
+  country_of_destination = common_data %>% pull(country_of_destination) %>% unique(),
+  product = common_data %>% pull(product) %>% unique(),
+  port_of_export = common_data %>% pull(port_of_export) %>% unique()
+) %>%
+  merge(
+    avg_by_port_dest_product_year,
+    by = c("year", "country_of_destination", "product", "port_of_export"),
+    all.x = T
+  )
+
+head(balance_avg_by_port_dest_product_year)
+
+
+#-------------------------------------------------------------------------------
+
+# Create a new data frame with average volume and FOB by year
+avg_data <- common_data %>%
+  group_by(year) %>%
+  summarise(avg_volume = mean(volume, na.rm = TRUE),
+            avg_fob = mean(fob, na.rm = TRUE))
+
+# Plot the overall trend for average volume and FOB by year
+ggplot(avg_data, aes(x = year)) +
+  geom_line(aes(y = avg_fob, color = "Average FOB")) +
+  labs(title = "Overall Trend of Average Volume and FOB by Year",
+       x = "Year",
+       y = "Value",
+       color = "Metric") +
+  theme_minimal()
+
+ggplot(avg_data, aes(x = year)) +
+  geom_line(aes(y = avg_volume, color = "Average Volume")) +
+  labs(title = "Overall Trend of Average Volume and FOB by Year",
+       x = "Year",
+       y = "Value",
+       color = "Metric") +
+  theme_minimal()
+
+# Separate plots for each country by year
+country_data <- common_data %>%
+  group_by(year, country) %>%
+  summarise(avg_volume = mean(volume, na.rm = TRUE),
+            avg_fob = mean(fob, na.rm = TRUE))
+
+# Plot trends by country and year
+# Notice not all countries are present
+ggplot(country_data, aes(x = year)) +
+  geom_line(aes(y = avg_volume, color = "Average Volume")) +
+  geom_line(aes(y = avg_fob, color = "Average FOB")) +
+  facet_wrap(~ country) +
+  labs(title = "Trend of Average Volume and FOB by Country and Year",
+       x = "Year",
+       y = "Value",
+       color = "Metric") +
+  theme_minimal()
+
+glimpse(common_data)
+--------------------------------------------------------------------------------
+# Summarize or aggregate data by country_of_production
+summary_data <- common_data %>%
+  group_by(country_of_production) %>%
+  summarise(total_volume = sum(volume), total_fob = sum(fob))
+
+# Calculate the average volume and FOB for each country
+avg_by_country <- common_data %>%
+  group_by(country) %>%
+  summarise(
+    avg_volume = round(mean(volume, na.rm = TRUE), 2),
+    avg_fob = round(mean(fob, na.rm = TRUE), 2)
+  )
+
+# Plot Average Volume by Country
+ggplot(avg_by_country, aes(x = reorder(country, avg_volume), y = avg_volume)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Average Volume by Country", x = "Country", y = "Average Volume") +
+  theme_minimal()
+
+# Plot Average FOB by Country
+ggplot(avg_by_country, aes(x = reorder(country, avg_fob), y = avg_fob)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Average FOB by Country", x = "Country", y = "Average FOB") +
+  theme_minimal()
+
+--------------------------------------------------------------------------------
+
+# Analysis of volume and FOB by product
+avg_by_product <- common_data %>%
+  group_by(product) %>%
+  summarise(avg_volume = round(mean(volume, na.rm = TRUE), 2), 
+            avg_fob = round(mean(fob, na.rm = TRUE), 2))
+
+ggplot(avg_by_product, aes(x = reorder(product, avg_volume), y = avg_volume)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Average Volume by Product", x = "Product", y = "Average Volume") +
+  theme_minimal()
+
+ggplot(avg_by_product, aes(x = reorder(product, avg_fob), y = avg_fob)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Average FOB by Product", x = "Product", y = "Average FOB") +
+  theme_minimal()
+
+--------------------------------------------------------------------------------
+# Analysis of volume and FOB by port of export
+avg_by_port <- common_data %>%
+  group_by(port_of_export) %>%
+  summarise(
+    avg_volume = round(mean(volume, na.rm = TRUE), 2),
+    avg_fob = round(mean(fob, na.rm = TRUE), 2)
+  )
+
+ggplot(avg_by_port, aes(x = reorder(port_of_export, avg_volume), y = avg_volume)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Average Volume by Port of Export", x = "Port of Export", y = "Average Volume") +
+  theme_minimal()
+
+ggplot(avg_by_port, aes(x = reorder(port_of_export, avg_fob), y = avg_fob)) +
+  geom_bar(stat = "identity") +
+  coord_flip() +
+  labs(title = "Average FOB by Port of Export", x = "Port of Export", y = "Average FOB") +
+  theme_minimal()
+
+--------------------------------------------------------------------------------
+
+# Yearly trends for each country of production
+yearly_trends <- common_data %>%
+  filter(year %in% sort(unique(common_data$year), decreasing = TRUE)[1:10]) %>%
+  group_by(year, country_of_production) %>%
+  summarise(
+    total_volume = sum(volume, na.rm = TRUE),
+    total_fob = sum(fob, na.rm = TRUE)
+  )
+
+#Yearly Trends of Volume and FOB by Country
+ggplot(yearly_trends, aes(x = year)) +
+  geom_line(aes(y = total_volume, color = "Total Volume")) +
+  geom_line(aes(y = total_fob, color = "Total FOB")) +
+  facet_wrap(~ country_of_production) +
+  labs(title = "Yearly Trends of Volume and FOB by Country",
+       x = "Year", y = "Total", color = "Metric") +
+  theme_minimal()
+
+# Top exporters by volume and FOB
+top_exporters <- common_data %>%
+  filter(year %in% sort(unique(common_data$year), decreasing = TRUE)[1:10]) %>%
+  group_by(exporter) %>%
+  summarise(
+    total_volume = sum(volume, na.rm = TRUE),
+    total_fob = sum(fob, na.rm = TRUE)
+  ) %>%
+  arrange(desc(total_volume))
