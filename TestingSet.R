@@ -76,7 +76,7 @@ Argentina <- rbindlist(Argentina, fill = TRUE)
 #Bolivia (Drive) (19 Variables) (14793 Observations)
 Bolivia <- read.csv("https://drive.google.com/uc?id=1alOoHuKgzpSxhb0LNowT5a261HaPp_kI") %>% 
   janitor::clean_names() %>%
-  mutate(product = "Soy", country = "Bolivia")
+  mutate(product = "soy", country = "Bolivia")
 
 # Brazil -----------------------------------------------------------------------
 #Individual Products Brazil
@@ -125,29 +125,29 @@ rm(BrazilCocoa, BrazilCoffee, BrazilCorn, BrazilCotton, BrazilPalmKernal, Brazil
 #(7125359 obs - 46 variables)
 Brazil <- list(
   Beef = read.csv("brazil-beef-v2.2.0-2024-01-17.csv", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "Beef", country = "Brazil"),
+    mutate(product = "beef", country = "Brazil"),
   Chicken = read.csv("https://drive.google.com/uc?export=download&id=1yPl5Uniq2BI4D2fo0oJCHWyd9LL9RhjT", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "Chicken", country = "Brazil"),
+    mutate(product = "chicken", country = "Brazil"),
   Cocoa = read.csv("https://drive.google.com/uc?id=1JCYpvbhHdpSljdae_qCOd5NgeDmH9ldH", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "Cocoa", country = "Brazil"),
+    mutate(product = "cocoa", country = "Brazil"),
   Coffee = read.csv("https://drive.google.com/uc?id=1DpFdAv5BSR_7x2Q9nN0j1oTHiAOTmxRF", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "Coffee", country = "Brazil"),
+    mutate(product = "coffee", country = "Brazil"),
   Corn = read.csv("https://drive.google.com/uc?id=1Mts3F0k3U6H0RRksw5XHt8Z06u4CCALi", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "Corn", country = "Brazil"),
+    mutate(product = "corn", country = "Brazil"),
   Cotton = read.csv("https://drive.google.com/uc?id=14H83dAx3QN3r1Zm5Sdnl-nprjSASvEN2", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "Cotton", country = "Brazil"),
+    mutate(product = "cotton", country = "Brazil"),
   PalmKernal = read.csv("https://drive.google.com/uc?id=1RrBZnbU03TqpjLMBwFHKBGv3kbX2N-Wh", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "PalmKernal", country = "Brazil"),
+    mutate(product = "palmkernal", country = "Brazil"),
   PalmOil = read.csv("https://drive.google.com/uc?id=1SfU4sltTvRoMsKgjbquR6rpImX1oTajo", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "PalmOil", country = "Brazil"),
+    mutate(product = "palmOil", country = "Brazil"),
   Pork = read.csv("https://drive.google.com/uc?id=1UVVXeRyWcEwrnQV-aBF4jpTnfybMo44T", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "Pork", country = "Brazil"),
+    mutate(product = "pork", country = "Brazil"),
   Soy = read.csv("brazil-soy-v2.6.0-2024-01-17.csv", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "Soy", country = "Brazil"),
+    mutate(product = "soy", country = "Brazil"),
   SugarCane = read.csv("brazil-sugarcane-v0.0.1-2024-01-17.csv", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "SugarCane", country = "Brazil"),
+    mutate(product = "sugarcane", country = "Brazil"),
   WoodPulp = read.csv("https://drive.google.com/uc?export=download&id=1ONKwEtzAA-gOoX6yMIie6Dq4_H5ifdqW", fill = TRUE) %>% janitor::clean_names() %>% 
-    mutate(product = "WoodPulp", country = "Brazil")
+    mutate(product = "Woodpulp", country = "Brazil")
 )
 
 Brazil <- rbindlist(Brazil, fill = TRUE, idcol = "product")
@@ -180,17 +180,17 @@ rm(ColombiaBeef, ColombiaCocoa, ColombiaCoffee, ColombiaPalmKernel, ColombiaWood
 ##Colombia (Drive) (18 Variables) (43067 Observations) (Correct)
 Colombia <- list(
   Beef = read.csv("https://drive.google.com/uc?id=1sbJ0RITKW2v2mfXYHkuava45e7eL8YFA") %>% janitor::clean_names() %>%
-    mutate(product = "Beef", country = "Colombia"),
+    mutate(product = "beef", country = "Colombia"),
   Cocoa = read.csv("https://drive.google.com/uc?id=1sbJ0RITKW2v2mfXYHkuava45e7eL8YFA") %>% janitor::clean_names() %>%
-    mutate(product = "Cocoa", country = "Colombia"),
+    mutate(product = "cocoa", country = "Colombia"),
   Coffee = read.csv("https://drive.google.com/uc?id=1poEx5Iae29sGMhriC8anXYfrIzJeZqkK") %>% janitor::clean_names() %>%
-    mutate(product = "Coffee", country = "Colombia"),
+    mutate(product = "coffee", country = "Colombia"),
   Palm_Kernel = read.csv("https://drive.google.com/uc?id=140T49-DuaJhxIohiQNT8SJHng-iaTiWY") %>% janitor::clean_names() %>%
-    mutate(product = "Palm-Kernel", country = "Colombia"),
+    mutate(product = "palm-kernel", country = "Colombia"),
   Palm_Oil = read.csv("https://drive.google.com/uc?id=1a2jM721pQ1gPnR4NLFYFUM70Sfg02ZC7") %>% janitor::clean_names() %>%
-    mutate(product = "Palm-Oil", country = "Colombia"),
+    mutate(product = "palm-Oil", country = "Colombia"),
   Wood_Pulp = read.csv("https://drive.google.com/uc?id=1MK91_YpApl4ygS4SWgDrCbA9eakwKjQI") %>% janitor::clean_names() %>%
-    mutate(product = "Wood-Pulp", country = "Colombia")
+    mutate(product = "wood-pulp", country = "Colombia")
 ) %>%
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
@@ -218,9 +218,9 @@ rm(EcuadorShrimp, EcuadorCocoa)
 #Ecuador (Drive) (22 Var) (106359 Obs) (Correct)
 Ecuador <- list(
   Cocoa = read.csv("https://drive.google.com/uc?id=1wymOQWWKLjhLWZ_0Fs-9TlQ1hP7mM2yS") %>% janitor::clean_names() %>%
-    mutate(product = "Cocoa", country = "Ecuador"),
+    mutate(product = "cocoa", country = "Ecuador"),
   Shrimp = read.csv("https://drive.google.com/uc?id=1cO0swS-RBHXBxda4p7tcL5h7XFUmP5db") %>% janitor::clean_names() %>%
-    mutate(product = "Shrimp", country = "Ecuador")
+    mutate(product = "shrimp", country = "Ecuador")
 ) %>%
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
@@ -230,7 +230,7 @@ Ecuador <- list(
 #Ghana (Drive) (13 Variables-2111 Observations)
 Ghana <- read.csv("https://drive.google.com/uc?id=1d1qbfB6zyhmsZnvgMb0RL0jTYzHjB0hS") %>%
   janitor::clean_names() %>%
-  mutate(product = "Cocoa", country = "Ghana") %>%
+  mutate(product = "cocoa", country = "Ghana") %>%
   select(all_of(names(.)))
 
 
@@ -253,11 +253,11 @@ rm(IndonesiaWoodPulp, IndonesiaShrimp, indonesia_palm_oil)
 #Indonesia (Drive)  (1835367 obs- 60 variables)
 Indonesia <- list(
   Palm_Oil = read.csv("indonesia-palm-oil-v1.2.1-2024-05-02.csv") %>% janitor::clean_names() %>%
-    mutate(product = "Palm_Oil", country = "Indonesia"),
+    mutate(product = "palm_Oil", country = "Indonesia"),
   Shrimp = read.csv("https://drive.google.com/uc?id=10iZjP6QoRSqHOi-kI4yhqljAmoKX0SoG") %>% janitor::clean_names() %>%
-    mutate(product = "Shrimp", country = "Indonesia"),
+    mutate(product = "shrimp", country = "Indonesia"),
   Wood_Pulp = read.csv("https://drive.google.com/uc?export=download&id=1w0k1T9bhT3xsrTggMpuLV4w2WtJlkezr", header = TRUE, fill = TRUE) %>% janitor::clean_names() %>%
-    mutate(product = "Wood_Pulp", country = "Indonesia")
+    mutate(product = "Wood_pulp", country = "Indonesia")
 ) %>%
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
@@ -279,11 +279,11 @@ rm(ParaguaySoy, ParaguayCorn, ParaguayBeef)
 ##Paraguay (Drive) (Correct) (21553 Obs- 25 Variables)
 Paraguay <- list(
   Beef = read.csv("https://drive.google.com/uc?id=1-GuZ_gIS_lrZGOwM_1UsgwHgDkFSMXjA") %>% janitor::clean_names() %>%
-    mutate(product = "Beef", country = "Paraguay"),
+    mutate(product = "beef", country = "Paraguay"),
   Corn = read.csv("https://drive.google.com/uc?id=1IwD7SmzIXOTyQX2ZNtVefPx84dzuCoKJ") %>% janitor::clean_names() %>%
-    mutate(product = "Corn", country = "Paraguay"),
+    mutate(product = "corn", country = "Paraguay"),
   Soy = read.csv('https://drive.google.com/uc?export=download&id=1R3ArgyWgtODgQfaS6riwW9rGbb1kldc-', sep = ",", quote = "\"") %>% janitor::clean_names() %>%
-    mutate(product = "Soy", country = "Paraguay")
+    mutate(product = "soy", country = "Paraguay")
 ) %>%
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
@@ -305,11 +305,11 @@ rm(PeruShrimp, PeruCoffee, PeruCocoa)
 ##Peru (Drive) (11 Variables- Obs 15554) (Correct)
 Peru <- list(
   Cocoa = read.csv("https://drive.google.com/uc?id=1ZjN4jZfLUVej-ubT7xaBz-Uezqn5Hu6M") %>% janitor::clean_names() %>%
-    mutate(product = "Cocoa", country = "Peru"),
+    mutate(product = "cocoa", country = "Peru"),
   Coffee = read.csv("https://drive.google.com/uc?id=19f7rm6dwCNbk1YnLjh7YYv1tLOuhFSIN") %>% janitor::clean_names() %>%
-    mutate(product = "Coffee", country = "Peru"),
+    mutate(product = "coffee", country = "Peru"),
   Shrimp = read.csv("https://drive.google.com/uc?id=17832yGZvBrnIe1UH7nXO5QnfLHsZ8k0v")  %>% janitor::clean_names() %>%
-    mutate(product = "Shrimp", country = "Peru")
+    mutate(product = "shrimp", country = "Peru")
 ) %>%
   rbindlist(fill = TRUE, idcol = "product") %>%
   select(all_of(names(.)))
